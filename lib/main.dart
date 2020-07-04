@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-//            title: const Text('選択した項目が画面に表示されます'),
+//            title: const Text('説明文表示'),
             actions: <Widget>[
               CupertinoActionSheetAction(
                 child: const Text('Reset'),
