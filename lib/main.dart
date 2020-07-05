@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+// ignore: unused_import
+import "package:shared_preferences/shared_preferences.dart";
 
 void main() {
   runApp(MyApp());
@@ -24,12 +26,15 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
+
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 //↓CountNumber
 class _MyHomePageState extends State<MyHomePage> {
+
   int _counter = 0;
 
   List colors = [
@@ -69,8 +74,26 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
+      _setPrefItems();
     });
   }
+
+  // Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
+  _getPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。見つからなければ０を返す
+    setState(() {
+      _counter = prefs.getInt('counter') ?? 0;
+    });
+  }
+
+  // Shared Preferenceにデータを書き込む
+  _setPrefItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // 以下の「counter」がキー名。
+    prefs.setInt('counter', _counter);
+  }
+
 
   void changeIndex() {
     setState(() {
@@ -143,6 +166,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _reset() {
     setState(() => _counter=0);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 初期化時にShared Preferencesに保存している値を読み込む
+    _getPrefItems();
   }
 
   @override
@@ -315,3 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+
