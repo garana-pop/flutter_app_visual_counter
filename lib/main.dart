@@ -9,7 +9,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -78,19 +77,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // Shared Preferenceに値を保存されているデータを読み込んで_counterにセットする。
   _getPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // 以下の「counter」がキー名。見つからなければ０を返す
     setState(() {
       _counter = prefs.getInt('counter') ?? 0;
     });
   }
 
-  // Shared Preferenceにデータを書き込む
   _setPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // 以下の「counter」がキー名。
     prefs.setInt('counter', _counter);
   }
 
@@ -145,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-//            title: const Text('説明文表示'),
+//            title: const Text('上に説明文表示'),
             actions: <Widget>[
               CupertinoActionSheetAction(
                 child: const Text('Reset'),
